@@ -61,6 +61,5 @@ app.listen(port, () => {
 function getRandomName() {
     const names = ["Fast", "Secret", "Cat", "Smart", "Node", "Magic", "Cry"];
     const name = names[Math.floor(Math.random() * names.length)];
-    const index = Math.floor(Math.random() * 1000);
-    return `${name}${index}`;
+    return `${name}`;
 }
