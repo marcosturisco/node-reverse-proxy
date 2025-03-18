@@ -11,7 +11,3 @@ WORKDIR /usr/src/app
 RUN apk add --no-cache curl
 
 COPY --from=builder /usr/src/app .
-
-EXPOSE 3000
-
-ENTRYPOINT ["node", "index.js"]

@@ -18,7 +18,7 @@ connection.connect(err => {
     console.log('Connected to MySQL!');
 });
 
-app.get('/', (req, res) => {
+app.get('/add', (req, res) => {
     const name = getRandomName();
     const add = `INSERT INTO people(name) VALUES(?)`;
     connection.query(add, [name], (err, result) => {
@@ -42,6 +42,11 @@ app.get('/', (req, res) => {
         responseHtml += '</ul>';
         res.send(responseHtml);
     });
+});
+
+app.get('/', (req, res) => {
+    console.log('Testing APP Service');
+    res.send('<h1>Testing APP Service</h1>');
 });
 
 app.listen(port, '0.0.0.0', () => {
