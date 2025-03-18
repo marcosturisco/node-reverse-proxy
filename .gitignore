@@ -3,4 +3,4 @@
 /mysql2/
 *.iml
 *.iws
-/mysql/
+/mysql/*
