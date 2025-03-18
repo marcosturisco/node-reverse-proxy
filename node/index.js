@@ -6,7 +6,7 @@ const config = {
     host: 'db',
     user: 'root',
     password: 'root',
-    database: 'nodedb'
+    database: 'challenge'
 };
 
 const connection = mysql.createConnection(config);

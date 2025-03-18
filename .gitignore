@@ -1,5 +1,6 @@
 .idea/
 /node/node_modules/
-/mysql/
+/mysql2/
 *.iml
 *.iws
+/mysql/
