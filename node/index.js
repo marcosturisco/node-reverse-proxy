@@ -1,14 +1,14 @@
 const express = require('express')
-const mysql = require('mysql2');
 const app = express()
 const port = 3000
+
+const mysql = require('mysql2');
 const config = {
     host: 'db',
     user: 'root',
     password: 'root',
     database: 'challenge'
 };
-
 const connection = mysql.createConnection(config);
 connection.connect(err => {
     if (err) {
@@ -49,7 +49,7 @@ app.get('/', (req, res) => {
     res.send('<h1>Testing APP Service</h1>');
 });
 
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, () => {
     console.log('Running on door ' + port)
 });
 
