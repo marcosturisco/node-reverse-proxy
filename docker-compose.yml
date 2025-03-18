@@ -1,10 +1,25 @@
 services:
 
+  proxy:
+    build:
+      context: nginx
+    image: dockermactur/nginx:fullcycle
+    container_name: proxy
+    restart: on-failure
+    networks:
+      - node-network
+    ports:
+      - "8080:8080"
+    depends_on:
+      app:
+        condition: service_started
+
   app:
     build:
       context: node
     image: dockermactur/node:fullcycle
     container_name: app
+    restart: on-failure
     entrypoint: sh -c "npm install && npm run dev"
     networks:
       - node-network
@@ -12,7 +27,13 @@ services:
       - ./node:/usr/src/app
     tty: true
     ports:
-      - "8080:3000"
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
     depends_on:
       db:
         condition: service_healthy
@@ -21,7 +42,7 @@ services:
     image: mysql:9.2.0
     command: --innodb-use-native-aio=0
     container_name: db
-    restart: no
+    restart: on-failure
     tty: true
     volumes:
       - ./mysql:/var/lib/mysql
