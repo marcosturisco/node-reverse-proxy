@@ -10,9 +10,9 @@ services:
       - node-network
     ports:
       - "8080:8080"
-#    depends_on:
-#      app:
-#        condition: service_started
+    depends_on:
+      app:
+        condition: service_healthy
 
   app:
     build:
@@ -20,18 +20,18 @@ services:
     image: dockermactur/node:fullcycle
     container_name: app
     restart: on-failure
-    entrypoint: sh -c "npm install && npm run dev"
+    entrypoint: sh -c "npm install -g npm@11.2.0 && npm run dev"
     networks:
       - node-network
     volumes:
       - ./node:/usr/src/app
     tty: true
-#    healthcheck:
-#      test: ["CMD", "curl", "-f", "http://localhost:3000"]
-#      interval: 10s
-#      timeout: 10s
-#      retries: 3
-#      start_period: 10s
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
     depends_on:
       db:
         condition: service_healthy
