@@ -44,6 +44,11 @@ app.get('/add', (req, res) => {
     });
 });
 
+app.use((req, res, next) => {
+  console.log(`Request of: ${req.ip} to ${req.originalUrl}`);
+  next();
+});
+
 app.get('/', (req, res) => {
     console.log('Testing APP Service');
     res.send('<h1>Testing APP Service</h1>');

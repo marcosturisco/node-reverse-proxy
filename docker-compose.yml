@@ -10,9 +10,9 @@ services:
       - node-network
     ports:
       - "8080:8080"
-    depends_on:
-      app:
-        condition: service_started
+#    depends_on:
+#      app:
+#        condition: service_started
 
   app:
     build:
@@ -26,12 +26,12 @@ services:
     volumes:
       - ./node:/usr/src/app
     tty: true
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
-      interval: 10s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+#      interval: 10s
+#      timeout: 10s
+#      retries: 3
+#      start_period: 10s
     depends_on:
       db:
         condition: service_healthy
