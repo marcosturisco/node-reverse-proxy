@@ -20,7 +20,13 @@ services:
     image: dockermactur/node:fullcycle
     container_name: app
     restart: on-failure
-    entrypoint: sh -c "npm install && npm install -g npm@11.2.0 && npm run dev"
+    entrypoint: sh -c "\
+      echo 'Installing Dependencies...' && \
+      npm install -g npm@11.2.0 && \
+      npm install express --save && \
+      npm install mysql2 --save && \
+      echo 'Starting Node Application...' && \
+      npm run dev"
     networks:
       - node-network
     volumes:
@@ -31,14 +37,14 @@ services:
       interval: 10s
       timeout: 10s
       retries: 3
-      start_period: 10s
+      start_period: 15s
     depends_on:
       db:
         condition: service_healthy
 
   db:
     image: mysql:9.2.0
-    command: --innodb-use-native-aio=0
+    command: --innodb-use-native-aio=0 --bind-address=0.0.0.0
     container_name: db
     restart: on-failure
     tty: true
@@ -52,10 +58,10 @@ services:
       - "3306:3306"
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD" ]
-      interval: 5s
+      interval: 10s
       timeout: 10s
-      retries: 3
-      start_period: 10s
+      retries: 5
+      start_period: 30s
     networks:
       - node-network
 
