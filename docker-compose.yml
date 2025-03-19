@@ -20,7 +20,7 @@ services:
     image: dockermactur/node:fullcycle
     container_name: app
     restart: on-failure
-    entrypoint: sh -c "npm install -g npm@11.2.0 && npm run dev"
+    entrypoint: sh -c "npm install && npm install -g npm@11.2.0 && npm run dev"
     networks:
       - node-network
     volumes:
