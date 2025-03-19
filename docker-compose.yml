@@ -44,7 +44,7 @@ services:
 
   db:
     image: mysql:9.2.0
-    command: --innodb-use-native-aio=0 --bind-address=0.0.0.0
+    command: --innodb-use-native-aio=0
     container_name: db
     restart: on-failure
     tty: true

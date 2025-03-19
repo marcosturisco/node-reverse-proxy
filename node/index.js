@@ -26,7 +26,7 @@ app.get('/add', (req, res) => {
             console.error('Insert Error:', err);
             return res.status(500).send('<h1>Server Error</h1>');
         }
-        console.log('People Added Successfully!');
+        console.log(`${name} Added Successfully!`);
     });
     const sql = `SELECT * FROM people`;
     connection.query(sql, (err, results) => {
@@ -59,7 +59,28 @@ app.listen(port, () => {
 });
 
 function getRandomName() {
-    const names = ["Fast", "Secret", "Cat", "Smart", "Node", "Magic", "Cry"];
+    const names = [
+      "Alexander the Great",
+      "Julius Caesar",
+      "Cleopatra VII",
+      "Leonidas I",
+      "Hannibal Barca",
+      "King Arthur",
+      "Joan of Arc",
+      "Genghis Khan",
+      "Richard the Lionheart",
+      "Robin Hood",
+      "Leonardo da Vinci",
+      "Michelangelo",
+      "William Shakespeare",
+      "Galileo Galilei",
+      "Napoleon Bonaparte",
+      "Abraham Lincoln",
+      "Nikola Tesla",
+      "Winston Churchill",
+      "Mahatma Gandhi",
+      "Martin Luther King Jr."
+    ];
     const name = names[Math.floor(Math.random() * names.length)];
     return `${name}`;
 }
